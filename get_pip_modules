@@ -1,0 +1,16 @@
+#!/usr/bin/python3
+
+import importlib
+
+def get_pip_modules():
+        localmodule = importlib.import_module('pkg_resources')
+        if localmodule:
+            module_list = []
+            pip_mod = {package.key: package.version for package in localmodule.working_set}
+            for key, value in sorted(pip_mod.items()):
+                module_list.append({'name': key, 'version': value, 'type': 'pip'})
+            return module_list
+        return list()
+
+pip_modules = get_pip_modules()
+print(pip_modules)

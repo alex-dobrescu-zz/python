@@ -1,0 +1,18 @@
+#!/usr/bin/python3
+
+import importlib
+
+def get_rpm_packages():
+    localmodule = importlib.import_module('rpm')
+    if module:
+        package_list = []
+        trans_set = localmodule.TransactionSet()
+        for key in trans_set.dbMatch():
+            package_name = key['name'].decode('utf-8')
+            package_version = '{0}-{1}'.format(key['version'].decode('utf-8'), key['release'].decode('utf-8'))
+            package_list.append({'name': package_name, 'version': package_version, 'type': 'rpm'})
+        return package_list
+    return list()
+
+rpm_packages = get_rpm_packages()
+print(rpm_packages)

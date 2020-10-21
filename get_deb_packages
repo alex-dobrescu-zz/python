@@ -1,0 +1,17 @@
+#!/usr/bin/python3
+
+import importlib
+
+def get_deb_packages():
+    localmodule = importlib.import_module('apt')
+    if localmodule:
+        package_list = []
+        cache = localmodule.Cache()
+        for package in cache:
+            if package.is_installed:
+                package_list.append({'name': package.name, 'version': package.installed.version, 'type': 'apt'})
+        return package_list
+    return list()
+
+deb_packages = get_deb_packages()
+print(deb_packages)
